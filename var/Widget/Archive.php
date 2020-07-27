@@ -270,6 +270,9 @@ class Widget_Archive extends Widget_Abstract_Contents
             //$this->request->setParams($params);
 
             if ('/comments/' == $feedQuery || '/comments' == $feedQuery) {
+                if (!$this->user->hasLogin()) {
+                    throw new Typecho_Widget_Exception(_t('聚合页不存在'), 404);
+                }
                 /** 专为feed使用的hack */
                 $this->parameter->type = 'comments';
             } else {
